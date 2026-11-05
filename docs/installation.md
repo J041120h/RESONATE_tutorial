@@ -11,28 +11,52 @@ CUDA GPU speeds up large datasets.
 
 ## 1. Install
 
-Create an environment, install PyTorch, then RESONATE from GitHub:
+The package is installed from GitHub (it is not on PyPI yet). Only the PyTorch build differs between a CPU and a GPU
+installation.
 
-```bash
-python -m venv resonate-env && source resonate-env/bin/activate   # or: conda create -n resonate python=3.10
-pip install torch                                                  # CPU build; for CUDA see https://pytorch.org
-pip install git+https://github.com/J041120h/RESONATE.git
-```
+=== "pip (CPU)"
 
-The package is not on PyPI yet. To work from a clone (for example to run the tests):
+    ```bash
+    python -m venv resonate-env && source resonate-env/bin/activate      # Python 3.10 or 3.11
+    pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU build of PyTorch
+    pip install "git+https://github.com/J041120h/RESONATE.git"
+    ```
 
-```bash
-git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
-pip install -e ".[test]"
-pytest -q -m "not slow"      # unit tests, about a minute
-pytest -q                    # with the end-to-end tests, a few minutes
-```
+=== "conda (CPU)"
+
+    ```bash
+    git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
+    conda env create -f environment.yml          # pinned, validated versions
+    conda activate resonate
+    pip install -e . --no-deps
+    ```
+
+=== "GPU"
+
+    ```bash
+    # first a CUDA build of PyTorch that matches your driver, see https://pytorch.org/get-started/locally/
+    pip install torch --index-url https://download.pytorch.org/whl/cu124
+    pip install "git+https://github.com/J041120h/RESONATE.git"
+    python -c "import torch; print(torch.cuda.is_available())"           # should print True
+    ```
+
+=== "From a clone"
+
+    ```bash
+    git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
+    pip install -e ".[test]"
+    pytest -q -m "not slow"      # unit tests, about a minute
+    pytest -q                    # with the end-to-end tests, a few minutes
+    ```
 
 The tutorials also draw figures with matplotlib:
 
 ```bash
 pip install matplotlib
 ```
+
+More detail (validated version sets, GPU notes) is in the repository's
+[`INSTALL.md`](https://github.com/J041120h/RESONATE/blob/main/INSTALL.md).
 
 ## 2. Check the installation
 
@@ -88,9 +112,9 @@ the tutorials.
 
 ## Tested versions
 
-The tutorials on this site were run with Python 3.10.20, torch 2.5.1 (CPU), numpy 1.26.4, scipy 1.15.3, pandas 2.3.3,
+The outputs on this site come from runs with Python 3.10.20, torch 2.5.1 (CUDA 12.1 build; on the CPU except the GPU row above), numpy 1.26.4, scipy 1.15.3, pandas 2.3.3,
 scikit-learn 1.7.2, anndata 0.11.4, scanpy 1.11.5, harmonypy 2.0.0, igraph 1.0.0, leidenalg 0.11.0, pynndescent 0.6.0
-and matplotlib 3.10.9.
+and matplotlib 3.10.9. The repository's `environment.yml` pins a newer set that the package was also validated with.
 
 Reference cell types come from Leiden clustering after Harmony correction, so other versions of those libraries can
 give slightly different clusters and therefore slightly different predictions. `pynndescent` 0.7 does not work with
