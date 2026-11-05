@@ -1,0 +1,10 @@
+# built site (GitHub Actions builds and deploys it)
+site/
+.cache/
+__pycache__/
+.venv/
+venv/
+# files written when running the tutorials from the repository root
+data/
+resonate_demo/
+cli_demo/

@@ -1,0 +1,114 @@
+site_name: RESONATE
+site_description: Predict genes that a spatial transcriptomics panel did not measure, using a matched single-cell reference, foundation-model gene embeddings and spatial context.
+site_author: Harry Jiang
+site_url: https://j041120h.github.io/RESONATE_tutorial/
+repo_url: https://github.com/J041120h/RESONATE
+repo_name: J041120h/RESONATE
+edit_uri: ""
+use_directory_urls: true
+strict: true
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+copyright: RESONATE is released under the MIT licence.
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    logo: material/dna
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Tutorials:
+      - "Demo data (download)": tutorials/demo_data.md
+      - "Quick start on fetal heart": tutorials/quickstart.md
+      - "Predict genes outside the panel": tutorials/unseen_genes.md
+      - "Command line": tutorials/cli.md
+      - "Choosing a reference and gene embeddings": tutorials/choosing.md
+      - "Inputs and outputs": tutorials/inputs_outputs.md
+  - How the model works: method.md
+  - Equivalence with the paper model: equivalence.md
+  - API reference:
+      - Overview: api/index.md
+      - prepare: api/prepare.md
+      - fit: api/fit.md
+      - "predict (Resonate)": api/predict.md
+      - score_heldout: api/score_heldout.md
+      - load_gene_embeddings: api/embeddings.md
+      - Config: api/config.md
+      - Command line: api/cli.md
+  - FAQ: faq.md
+  - Citation: citation.md

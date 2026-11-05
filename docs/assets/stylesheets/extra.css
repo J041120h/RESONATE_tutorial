@@ -1,0 +1,267 @@
+/* =========================================================
+   RESONATE docs: slate + teal palette
+   Built on the paper's house colours: RESONATE teal #10B396
+   (accents, rules, figure marks) and slate #33485D (header,
+   headings). Text-carrying teal is darkened to #0a7a66 in
+   light mode (5.1:1 on the page) and lightened to #4cc9ae
+   in dark mode (8.8:1).
+   ========================================================= */
+
+:root {
+  --rs-teal: #10b396;
+  --rs-teal-text: #0a7a66;
+  --rs-teal-dark: #0b5f50;
+  --rs-slate: #33485d;
+  --rs-slate-dark: #26384a;
+  --rs-slate-light: #4f6378;
+  --rs-bg: #fafbfb;
+  --rs-bg-muted: #eef3f3;
+  --rs-border: #dfe6e8;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--rs-slate);
+  --md-primary-fg-color--light: var(--rs-slate-light);
+  --md-primary-fg-color--dark: var(--rs-slate-dark);
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color: var(--rs-teal-text);
+  --md-accent-fg-color--transparent: rgba(16, 179, 150, 0.1);
+  --md-accent-bg-color: #ffffff;
+  --md-default-bg-color: var(--rs-bg);
+  --md-typeset-a-color: var(--rs-teal-text);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 205;
+  --md-primary-fg-color: #2a3b4c;
+  --md-primary-fg-color--light: #3c5064;
+  --md-primary-fg-color--dark: #1d2a37;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #4cc9ae;
+  --md-accent-fg-color--transparent: rgba(76, 201, 174, 0.14);
+  --md-typeset-a-color: #4cc9ae;
+  --md-default-bg-color: #11181f;
+}
+
+.md-typeset {
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 {
+  font-size: 2rem;
+  margin-bottom: 0.6em;
+  color: var(--rs-slate);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #b8e8dc;
+}
+
+.md-typeset h2 {
+  font-size: 1.45rem;
+  margin-top: 2em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h3 {
+  font-size: 1.1rem;
+  margin-top: 1.6em;
+}
+
+.md-header {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+.md-tabs {
+  background: var(--md-primary-fg-color--dark);
+}
+
+/* a thin teal rule under the navigation bar ties the slate bar to the brand teal */
+.md-tabs {
+  border-bottom: 2px solid var(--rs-teal);
+}
+
+.md-typeset a {
+  transition: color 120ms ease;
+}
+
+.md-typeset a:hover {
+  color: var(--rs-teal-dark);
+}
+
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: #8fe0cf;
+}
+
+.md-typeset img {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  max-width: 100%;
+  background: #ffffff; /* figures are drawn on white; keep them readable in dark mode */
+}
+
+.md-typeset figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+.md-typeset figcaption,
+.figure-caption {
+  font-size: 0.82em;
+  color: var(--md-default-fg-color--light);
+  text-align: center;
+  margin: 0.35em auto 1.6em;
+  max-width: 46em;
+  line-height: 1.5;
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.75rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--rs-bg-muted);
+  color: var(--rs-slate);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5em 0.75em;
+  border-bottom: 2px solid var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: #1a242d;
+  color: #b8e8dc;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.4em 0.75em;
+  vertical-align: top;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background: var(--md-accent-fg-color--transparent);
+}
+
+.md-typeset code {
+  font-size: 0.86em;
+  padding: 0.12em 0.36em;
+  border-radius: 3px;
+}
+
+.md-typeset pre > code {
+  font-size: 0.8rem;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 4px;
+  font-size: 0.78rem;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-weight: 600;
+}
+
+/* "Output" blocks: printed results of the code above them */
+.md-typeset .output > summary,
+.md-typeset .output > .admonition-title {
+  font-weight: 500;
+}
+
+.hero {
+  padding: 1.5em 0 1em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  margin-bottom: 1.5em;
+}
+
+.hero p:first-of-type {
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 1em;
+}
+
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > ol > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+  padding: 1em 1.1em;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  background: var(--md-default-bg-color);
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > ol > li:hover {
+  border-color: var(--rs-teal);
+  box-shadow: 0 2px 8px rgba(16, 179, 150, 0.14);
+}
+
+.md-typeset .md-button {
+  border-radius: 4px;
+  font-weight: 500;
+  padding: 0.5em 1em;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.md-typeset .md-button--primary {
+  background: var(--rs-slate);
+  border-color: var(--rs-slate);
+  color: #ffffff;
+}
+
+.md-typeset .md-button--primary:hover {
+  background: var(--rs-teal-text);
+  border-color: var(--rs-teal-text);
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary {
+  background: #0a7a66;
+  border-color: #0a7a66;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary:hover {
+  background: #0b5f50;
+  border-color: #0b5f50;
+}
+
+.md-nav__title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--rs-slate);
+}
+
+[data-md-color-scheme="slate"] .md-nav__title {
+  color: #b8e8dc;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+  color: var(--rs-teal-text) !important;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: #4cc9ae !important;
+}
+
+.md-search__form {
+  border-radius: 4px;
+}
+
+/* displayed equations: allow horizontal scroll on narrow screens */
+.md-typeset .arithmatex {
+  overflow-x: auto;
+}
