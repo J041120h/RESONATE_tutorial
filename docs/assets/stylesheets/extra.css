@@ -283,11 +283,3 @@
   white-space: pre !important;
   overflow-x: auto;
 }
-
-/* on phones, drop the In [ ] / Out [ ] prompts so code and output use the full width */
-@media screen and (max-width: 44.9375em) {
-  .jupyter-wrapper .jp-InputArea-prompt,
-  .jupyter-wrapper .jp-OutputArea-prompt {
-    display: none !important;
-  }
-}

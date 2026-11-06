@@ -5,7 +5,7 @@ RESONATE is a Python package (install name `resonate-st`, import name `resonate`
 
 !!! info "Requirements"
     - **Python 3.10 or 3.11** and **PyTorch ≥ 2.1**, on Linux or macOS.
-    - **Memory:** at least **16 GB** of RAM for the tutorials. The walkthrough peaked at 8.9 GiB (see
+    - **Memory:** at least **16 GB** of RAM for the tutorials. The walkthrough peaked at 9.9 GiB (see
       [Hardware](#hardware)).
     - **GPU (optional):** any CUDA GPU supported by your PyTorch build.
 
@@ -98,7 +98,7 @@ the full fetal-heart dataset of the paper. Peak memory is the largest resident m
 
 | run | `prepare` | `fit` | peak memory |
 |---|---|---|---|
-| [walkthrough](tutorials/walkthrough.ipynb) (12 epochs per stage), 4 CPU cores; whole notebook 8.0 min | 0.7 min | 6.3 min | 8.9 GiB |
+| [walkthrough](tutorials/walkthrough.ipynb) (12 epochs per stage), 4 CPU cores; whole notebook 7.6 min | 0.9 min | 6.3 min | 9.9 GiB |
 | [command line](tutorials/cli.md) page (12 epochs per stage), 4 CPU cores; whole page, with `resonate run`, 14.9 min | 0.9 min | 6.2 min | 9.5 GiB |
 | demo, paper defaults (up to 500 epochs, early stopping: 91 + 17 epochs), 4 CPU cores | 2.3 min | 23 min | 11.0 GiB |
 | demo, paper defaults (87 + 16 epochs), 1 NVIDIA L40S GPU | 1.6 min | 0.6 min | 4.2 GiB host |

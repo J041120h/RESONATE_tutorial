@@ -22,10 +22,30 @@ No. They are on the log-normalised scale of the spatial data (`log1p` of counts 
 the measured genes). `expm1` gives a normalised-count scale; treat absolute levels of single genes with caution, since
 the model optimises agreement across cells.
 
+**How do I save and reload a fitted model?**
+`prep.save("prepared")` and `model.save("model")` (step 8 of the [walkthrough](tutorials/walkthrough.ipynb)) write the
+prepared inputs and the weights. A model is always reloaded together with the prepared inputs it was fitted on:
+
+```python
+import anndata as ad
+import numpy as np
+import resonate
+
+prep = resonate.Prepared.load("prepared")
+model = resonate.Resonate.load("model", prep, device="cpu")
+pred = model.predict()
+saved = ad.read_h5ad("heldout_predictions.h5ad")          # written before saving the model
+print(pred.shape, "same as before saving:", np.allclose(pred.X, saved.X, atol=1e-5))
+```
+
+```text title="Output"
+(12000, 48) same as before saving: True
+```
+
 **How long does it take, and how much memory?**
 On the demo data (12,000 spatial cells, 8,011 reference cells, 236 genes), with four CPU cores: 1 to 2 minutes for
 `prepare` and about 6 minutes for `fit` at 12 epochs per stage (23 minutes with the paper defaults); the walkthrough
-peaked at 8.9 GiB of memory and other demo runs at up to 12 GiB, so use at least 16 GB. For the full fetal-heart dataset of the paper (250,926 spatial cells,
+peaked at 9.9 GiB of memory and other demo runs at up to 12 GiB, so use at least 16 GB. For the full fetal-heart dataset of the paper (250,926 spatial cells,
 73,248 reference cells), `prepare` took about 33 minutes on eight CPU cores and `fit` about 11 minutes on one L40S GPU.
 See [Installation](installation.md#hardware).
 

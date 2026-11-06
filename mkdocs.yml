@@ -59,8 +59,10 @@ plugins:
   - mkdocs-jupyter:
       # the notebook is shown with the outputs of a real run; it is never re-executed when the site is built
       execute: false
+      include: ["*.ipynb"]
       include_source: true
       ignore_h1_titles: true
+      no_prompt: true
 
 markdown_extensions:
   - admonition

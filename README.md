@@ -27,7 +27,8 @@ index.html, .nojekyll       only for the branch-deployment fallback below
 ```
 
 The walkthrough notebook was run top to bottom in a new environment (RESONATE installed from GitHub, CPU PyTorch,
-4 CPU cores); the outputs and figures in it come from that run. The commands on the command-line page and the code on
+4 CPU cores); the outputs and figures in it come from that run (the figures were re-encoded as 128-colour PNGs to keep
+the page light; nothing else was changed). The commands on the command-line page and the code on
 the embeddings page were run the same way, and their printed outputs are pasted from those runs. To update the
 walkthrough, run the notebook again in an empty folder and replace `docs/tutorials/walkthrough.ipynb` with the executed
 copy.
