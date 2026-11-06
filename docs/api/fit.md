@@ -9,6 +9,7 @@ choose the checkpoint and the attention weight $\lambda$.
 
 ## Signature
 
+<!-- norun -->
 ```python
 resonate.fit(prepared, config=None, *, max_train_cells=0, verbose=True) -> Resonate
 ```
@@ -41,5 +42,5 @@ model = resonate.fit(prep, cfg)
 print(model.summary["stage2"]["lambda_"])
 ```
 
-On the demo data with `max_epochs=12`, `fit` takes about six minutes on four CPU cores; see step 3 of the
-[walkthrough](../tutorials/walkthrough.ipynb) for the log.
+On the demo data with `max_epochs=12`, `fit` takes about six minutes on four CPU cores; step 3 of the
+[walkthrough](../tutorials/walkthrough.ipynb) shows its log.

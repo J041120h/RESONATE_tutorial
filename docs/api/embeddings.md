@@ -8,6 +8,7 @@ missing from the table share one learnable vector; target genes must have one. S
 
 ## `load_gene_embeddings`
 
+<!-- norun -->
 ```python
 resonate.load_gene_embeddings(source, name=None) -> GeneEmbeddings
 ```
@@ -31,6 +32,7 @@ print(len(emb), emb.dim)        # 2244 512
 
 ## `GeneEmbeddings`
 
+<!-- norun -->
 ```python
 resonate.GeneEmbeddings(genes, matrix, name="custom")
 ```
@@ -47,6 +49,7 @@ resonate.GeneEmbeddings(genes, matrix, name="custom")
 
 ## `extract_scgpt_spatial`
 
+<!-- norun -->
 ```python
 resonate.extract_scgpt_spatial(checkpoint_dir, out_path=None, genes=None) -> GeneEmbeddings
 ```
@@ -59,6 +62,7 @@ only PyTorch. The checkpoint is a third-party release: scGPT-spatial V1 on figsh
 
 ## `download_embeddings`
 
+<!-- norun -->
 ```python
 resonate.download_embeddings(name="scgpt_spatial_human", dest=None) -> pathlib.Path
 ```

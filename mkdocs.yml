@@ -107,6 +107,10 @@ nav:
       - "Choosing a reference and gene embeddings": tutorials/choosing.md
   - API reference:
       - Overview: api/index.md
+      - impute: api/impute.md
+      - score: api/score.md
+      - datasets: api/datasets.md
+      - pl (plots): api/pl.md
       - prepare: api/prepare.md
       - fit: api/fit.md
       - "predict (Resonate)": api/predict.md

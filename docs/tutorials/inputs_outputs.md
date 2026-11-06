@@ -1,5 +1,8 @@
 # Inputs and outputs
 
+[`impute`](../api/impute.md) takes the same inputs and passes them to `prepare`: its `genes=` and `heldout=` together
+are the `target_genes` below.
+
 ## What you provide
 
 | argument of `prepare` | content | required fields |

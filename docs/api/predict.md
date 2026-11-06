@@ -8,6 +8,7 @@ other reference gene that has an embedding when you pass the reference and the e
 
 ## Signature
 
+<!-- norun -->
 ```python
 Resonate.predict(
     genes=None,
@@ -55,7 +56,7 @@ is missing from the reference or has no embedding, or if `reference` has differe
 
 ```python
 pred = model.predict()                                                       # the fit targets
-extra = model.predict(["NPPA", "NPPB"], reference=reference, gene_embeddings=emb)   # any reference gene
+extra = model.predict(["NPPA", "NPPB"], reference=reference, gene_embeddings=embeddings)   # any reference gene
 ```
 
 See step 6 of the [walkthrough](../tutorials/walkthrough.ipynb).
@@ -70,6 +71,7 @@ See step 6 of the [walkthrough](../tutorials/walkthrough.ipynb).
 
 ## Save and load
 
+<!-- norun -->
 ```python
 model.save(path)                                        # path/model.pt (weights), path/model.json (config + summary)
 model = resonate.Resonate.load(path, prepared, device=None)

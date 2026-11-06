@@ -8,6 +8,7 @@ across cells is the primary measure, with Spearman correlation and aligned mean 
 
 ## Signature
 
+<!-- norun -->
 ```python
 resonate.score_heldout(prepared, pred, genes=None, *, cells="test", top_n=100, detection_floor=0.10) -> dict
 ```
@@ -25,6 +26,7 @@ resonate.score_heldout(prepared, pred, genes=None, *, cells="test", top_n=100, d
 
 ## Returns
 
+<!-- norun -->
 ```python
 {
     "all_heldout": {"pearson", "spearman", "mse", "n_genes", "n_cells", "n_degenerate", "per_gene": {...}},
@@ -46,7 +48,7 @@ scores = resonate.score_heldout(prep, pred)
 print(scores["top_n"]["pearson"], scores["top_n"]["n_genes"])
 ```
 
-See step 4 of the [walkthrough](../tutorials/walkthrough.ipynb).
+[`score`](score.md) gives the same numbers as a per-gene table.
 
 ## Related
 

@@ -1,92 +1,42 @@
 # FAQ
 
-**Which genes can I predict?**
-Any gene that the reference measures and that has an embedding, as long as it is not in the spatial panel. Genes in
-`target_genes` are modelled during training; other reference genes are predicted afterwards without refitting
-(`model.predict(genes, reference=..., gene_embeddings=...)`). See step 6 of the
-[walkthrough](tutorials/walkthrough.ipynb).
+**The installation fails.**
+Install PyTorch first (`pip install torch --index-url https://download.pytorch.org/whl/cpu`, or a CUDA build), then
+RESONATE, in a new environment with Python 3.10 or 3.11. The package needs `numpy < 2` and `scanpy < 1.12`, which can
+conflict with other versions already installed in an existing environment.
 
-**How many target genes should I give at fit time?**
-The type-specific correlation tensor holds `T × G × G` floats, with `G` = measured + target genes (16 types and
-5,600 genes take about 2 GB). Choose a moderate target set at `prepare` time (a few hundred to a few thousand genes)
-and predict further genes afterwards.
+**How do I use a GPU?**
+Install a CUDA build of PyTorch that matches your driver ([Installation](installation.md)). RESONATE then uses the GPU
+by default; drop `device="cpu"` and `max_epochs=12` from the tutorial call to train with the paper settings.
 
-**What is a held-out gene?**
-A gene that is measured in your spatial data but removed from the model input to test the model. Use
-`heldout_fraction=0.2`, or list measured genes in `target_genes`; `score_heldout` then compares the predictions with
-the measured values. It is the only way to estimate accuracy on genes the model has not seen. For real predictions,
-keep all measured genes as input.
+**How do I run it on my own data?**
+Give `resonate.impute` an `AnnData` of raw counts of your panel with coordinates in `obsm["spatial"]`, a reference
+`AnnData` of raw counts from the same tissue, an embedding table, and the genes to predict in `genes=`. Gene symbols
+must match across the three; see [Inputs and outputs](tutorials/inputs_outputs.md).
 
-**Are the predictions counts?**
-No. They are on the log-normalised scale of the spatial data (`log1p` of counts normalised to the median library of
-the measured genes). `expm1` gives a normalised-count scale; treat absolute levels of single genes with caution, since
-the model optimises agreement across cells.
+**Which reference and gene embeddings should I use?**
+A single-cell or single-nucleus reference of the same tissue that measures the genes you want, with a donor column in
+`obs["donor"]`; and the scGPT-spatial embedding table, or any table with one vector per gene symbol. See
+[Choosing a reference and gene embeddings](tutorials/choosing.md).
 
 **How do I save and reload a fitted model?**
-`prep.save("prepared")` and `model.save("model")` (step 8 of the [walkthrough](tutorials/walkthrough.ipynb)) write the
-prepared inputs and the weights. A model is always reloaded together with the prepared inputs it was fitted on:
+Save it with the prepared inputs it was trained on, as in step 8 of the [walkthrough](tutorials/walkthrough.ipynb);
+a reloaded model predicts further reference genes without refitting:
 
 ```python
-import anndata as ad
-import numpy as np
-import resonate
-
-prep = resonate.Prepared.load("prepared")
-model = resonate.Resonate.load("model", prep, device="cpu")
-pred = model.predict()
-saved = ad.read_h5ad("heldout_predictions.h5ad")          # written before saving the model
-print(pred.shape, "same as before saving:", np.allclose(pred.X, saved.X, atol=1e-5))
+model = resonate.Resonate.load("model", resonate.Prepared.load("prepared"), device="cpu")
+more = model.predict(["TNNT2", "ACTC1"], reference=reference, gene_embeddings=embeddings)
+print(more)
 ```
 
 ```text title="Output"
-(12000, 48) same as before saving: True
+AnnData object with n_obs × n_vars = 12000 × 2
+    obs: 'split'
+    var: 'is_fit_target'
+    uns: 'resonate'
+    obsm: 'spatial'
 ```
 
-**How long does it take, and how much memory?**
-On the demo data (12,000 spatial cells, 8,011 reference cells, 236 genes), with four CPU cores: 1 to 2 minutes for
-`prepare` and about 6 minutes for `fit` at 12 epochs per stage (23 minutes with the paper defaults); the walkthrough
-peaked at 9.9 GiB of memory and other demo runs at up to 12 GiB, so use at least 16 GB. For the full fetal-heart dataset of the paper (250,926 spatial cells,
-73,248 reference cells), `prepare` took about 33 minutes on eight CPU cores and `fit` about 11 minutes on one L40S GPU.
-See [Installation](installation.md#hardware).
-
-**It is slow.**
-`prepare` repeats the reference searches and Harmony 21 times (20 gene folds and all genes). A GPU speeds up the
-searches (`device="cuda"`); Harmony runs on the CPU. `Prepared.save` lets you reuse the result for several fits.
-Training time grows with the number of cells and with `G × G`.
-
-**The GPU runs out of memory.**
-Use `Config(data_on_host=True)` (the cells × genes matrices stay in host memory), lower `stage1_batch_size`, or reduce
-the target set.
-
-**Results differ slightly between runs.**
-The default GPU numerics follow the paper: TF32 matrix multiplies and bf16 inside the attention term, and a fused
-attention kernel whose backward pass is not deterministic. `Config(tf32=False, attn_bf16=False, attn_impl="sdpa_det")`
-gives tighter reproducibility at some cost in speed. Reference cell types come from Leiden clustering, which can differ
-slightly across library versions and thread counts.
-
-**My tissue is mouse.**
-Provide an embedding table with mouse symbols. The scGPT-spatial table is human. The paper's analyses are on human
-tissue.
-
-**Can I use a reference without donors?**
-Yes; the reference cell types and the cell-type mixtures are then not batch-corrected. Give `batch_key` if the reference
-pools samples.
-
-**Can I use several sections?**
-Yes; put the section name in `obs["section"]`. Spatial neighbours are searched within each section, and each section is
-its own batch in the cell-type search.
-
-**Do I need cell-type labels?**
-No. Reference cell types are Leiden clusters. You can supply labels with `prepare(type_key=...)`, and spatial labels
-can stratify the random cell split (`label_key`).
-
-**Can I use a GPU?**
-Yes, and it is chosen automatically when PyTorch sees one (`Config(device=None)`). Install a CUDA build of PyTorch
-first.
-
-**RNA to protein?**
-The paper's cross-omics mode (spatial protein from RNA, with a paired RNA-protein reference) is not part of this
-release.
-
-**How do I cite RESONATE?**
-See [Citation](citation.md).
+**Are the predictions counts?**
+No. They are `log1p` of counts normalised to the median library size of the measured genes, on the scale of the spatial
+data. Compare patterns across cells rather than absolute levels between genes.

@@ -5,8 +5,7 @@ RESONATE is a Python package (install name `resonate-st`, import name `resonate`
 
 !!! info "Requirements"
     - **Python 3.10 or 3.11** and **PyTorch ≥ 2.1**, on Linux or macOS.
-    - **Memory:** at least **16 GB** of RAM for the tutorials. The walkthrough peaked at 9.9 GiB (see
-      [Hardware](#hardware)).
+    - **Memory:** at least **16 GB** of RAM for the tutorials. The demo runs on a laptop CPU in about 8 minutes.
     - **GPU (optional):** any CUDA GPU supported by your PyTorch build.
 
 ## 1. Install
@@ -70,8 +69,8 @@ resonate --help
 ```
 
 ```text title="Output"
-0.1.0
-0.1.0
+0.2.0
+0.2.0
 usage: resonate [-h] {prepare,fit,predict,run,download-embeddings,version} ...
 
 Command line: ``resonate prepare | fit | predict | run | download-embeddings |
@@ -91,36 +90,11 @@ options:
 
 Then run the [walkthrough](tutorials/walkthrough.ipynb).
 
-## Hardware
-
-Measured with RESONATE 0.1.0 on the demo data (12,000 spatial cells, 8,011 reference cells, 236 panel genes) and on
-the full fetal-heart dataset of the paper. Peak memory is the largest resident memory of the job reported by Slurm.
-
-| run | `prepare` | `fit` | peak memory |
-|---|---|---|---|
-| [walkthrough](tutorials/walkthrough.ipynb) (12 epochs per stage), 4 CPU cores; whole notebook 7.6 min | 0.9 min | 6.3 min | 9.9 GiB |
-| [command line](tutorials/cli.md) page (12 epochs per stage), 4 CPU cores; whole page, with `resonate run`, 14.9 min | 0.9 min | 6.2 min | 9.5 GiB |
-| demo, paper defaults (up to 500 epochs, early stopping: 91 + 17 epochs), 4 CPU cores | 2.3 min | 23 min | 11.0 GiB |
-| demo, paper defaults (87 + 16 epochs), 1 NVIDIA L40S GPU | 1.6 min | 0.6 min | 4.2 GiB host |
-| full fetal heart (250,926 spatial and 73,248 reference cells), paper defaults | 33 min on 8 CPU cores | about 11 min on 1 NVIDIA L40S GPU | 12.6 GiB host for `prepare` |
-
-The first two rows are the runs shown on this site (environment below). The other rows were measured on 2026-11-05 with
-the same code in a Python 3.10 environment (torch 2.5.1). `prepare` time depends on the machine: the same step took
-about 2 minutes on other nodes of the same cluster.
-
-* Use a GPU for datasets of more than a few tens of thousands of cells: set nothing (CUDA is chosen when PyTorch sees
-  it) or pass `Config(device="cuda")`.
-* Panels with thousands of genes: the type-specific correlations take `T × G × G` floats (16 types and 5,600 genes take
-  about 2 GB). For very large cell numbers, `Config(data_on_host=True)` keeps the cells × genes matrices in host memory
-  instead of GPU memory.
-
 ## Tested versions
 
-The tutorials on this site were run with Python 3.11.18 and the versions that the CPU installation above resolved on
-2026-11-05: resonate-st 0.1.0 (commit `50d67af`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1, pandas 2.3.3,
-scikit-learn 1.9.1, anndata 0.12.19, scanpy 1.11.5, harmonypy 2.1.0, igraph 1.0.0, leidenalg 0.12.0, pynndescent 0.6.0,
-umap-learn 0.5.12, matplotlib 3.11.2, jupyterlab 4.6.5 and nbconvert 7.17.2.
-
-Reference cell types come from Leiden clustering after Harmony correction, so other versions of those libraries can
-give slightly different clusters and therefore slightly different predictions. `pynndescent` 0.7 does not work with
-scanpy 1.11 on large references and is excluded by the package requirements.
+The tutorials on this site were run on 2026-11-05 (Linux x86-64, 4 CPU cores) with Python 3.11.18 and the versions the
+CPU installation above resolved: resonate-st 0.2.0 (commit `1437514`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1,
+pandas 2.3.3, scikit-learn 1.9.1, anndata 0.12.19, scanpy 1.11.5, harmonypy 2.1.0, igraph 1.0.0, leidenalg 0.12.0,
+pynndescent 0.6.0, matplotlib 3.11.2, jupyterlab 4.6.5 and nbconvert 7.17.2. Reference cell types come from Leiden
+clustering after Harmony correction, so other versions of those libraries can give slightly different clusters and
+therefore slightly different predictions.

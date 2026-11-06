@@ -10,6 +10,7 @@ kept only for scoring.
 
 ## Signature
 
+<!-- norun -->
 ```python
 resonate.prepare(
     spatial,
@@ -73,12 +74,14 @@ lacks `train` or `val` cells.
 
 ## Example
 
+Step by step, as [`impute`](impute.md) does it (data from
+[`fetal_heart_demo`](datasets.md)):
+
 ```python
 cfg = resonate.Config(device="cpu", tf32=False, attn_bf16=False, max_epochs=12)
-prep = resonate.prepare(spatial, reference, emb, target_genes=held_out, config=cfg)
+prep = resonate.prepare(spatial, reference, embeddings, target_genes=held_out, config=cfg)
+print(prep)
 ```
-
-From step 3 of the [walkthrough](../tutorials/walkthrough.ipynb).
 
 ## `Prepared`
 

@@ -35,16 +35,15 @@ Details: [Inputs and outputs](tutorials/inputs_outputs.md).
 
 ## In code
 
-The core of the [walkthrough](tutorials/walkthrough.ipynb), which also loads the data, scores the predictions and plots
-them:
+The core of the [walkthrough](tutorials/walkthrough.ipynb):
 
 ```python
-cfg = resonate.Config(device="cpu", tf32=False, attn_bf16=False, max_epochs=12)
-prep = resonate.prepare(spatial, reference, emb, target_genes=held_out, config=cfg)
-model = resonate.fit(prep, cfg)
-pred = model.predict()                                 # the 48 held-out panel genes
-scores = resonate.score_heldout(prep, pred)            # against their measured values
-unseen = model.predict(genes, reference=reference, gene_embeddings=emb)   # genes outside the panel
+spatial, reference, embeddings, held_out = resonate.datasets.fetal_heart_demo("data")
+pred, model = resonate.impute(spatial, reference, embeddings, genes=markers, heldout=held_out,
+                              device="cpu", max_epochs=12, return_model=True)
+scores = resonate.score(pred, spatial)
+resonate.pl.spatial_compare(pred, spatial, scores[scores.top_n].index[:4], table=scores)
+resonate.pl.spatial_genes(pred, ["NPPA", "MYL2", "COL6A2", "EMCN"])
 ```
 
 ## Tutorials

@@ -51,7 +51,7 @@ cfg.to_dict()
 | `lambda_grid` | `(0.0, 0.25, 0.5, 0.75, 1.0)` | candidate weights of the attention term |
 | `mu_warmup_steps`, `mu_warmup_lr` | `200`, `1e-3` | fit of the gene-mean network at the start of each stage |
 
-## Numerics and hardware
+## Numerics and device
 
 | field | default | meaning |
 | --- | --- | --- |
