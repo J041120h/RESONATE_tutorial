@@ -55,7 +55,7 @@ installation.
     pytest -q                    # with the end-to-end tests, a few minutes
     ```
 
-The **CPU** tab is the installation the tutorials on this site were run with (2026-11-06, Linux x86-64, a new conda
+The **CPU** tab is the installation the tutorials on this site were run with (2026-11-05, Linux x86-64, a new conda
 environment; it took about 4 minutes, mostly downloads). The code repository's continuous integration runs the
 **From a clone** commands on every change, on Python 3.10 and 3.11. The **GPU** and **Pinned versions** routes come from
 the repository's [`INSTALL.md`](https://github.com/J041120h/RESONATE/blob/main/INSTALL.md), which lists the versions
@@ -117,7 +117,7 @@ about 2 minutes on other nodes of the same cluster.
 ## Tested versions
 
 The tutorials on this site were run with Python 3.11.18 and the versions that the CPU installation above resolved on
-2026-11-06: resonate-st 0.1.0 (commit `50d67af`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1, pandas 2.3.3,
+2026-11-05: resonate-st 0.1.0 (commit `50d67af`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1, pandas 2.3.3,
 scikit-learn 1.9.1, anndata 0.12.19, scanpy 1.11.5, harmonypy 2.1.0, igraph 1.0.0, leidenalg 0.12.0, pynndescent 0.6.0,
 umap-learn 0.5.12, matplotlib 3.11.2, jupyterlab 4.6.5 and nbconvert 7.17.2.
 
