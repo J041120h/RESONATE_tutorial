@@ -16,6 +16,7 @@ copyright: RESONATE is released under the MIT licence.
 
 theme:
   name: material
+  custom_dir: overrides            # adds a download button to notebook pages
   language: en
   font:
     text: Inter
@@ -55,6 +56,11 @@ theme:
 
 plugins:
   - search
+  - mkdocs-jupyter:
+      # the notebook is shown with the outputs of a real run; it is never re-executed when the site is built
+      execute: false
+      include_source: true
+      ignore_h1_titles: true
 
 markdown_extensions:
   - admonition
@@ -93,14 +99,10 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Tutorials:
-      - "Demo data (download)": tutorials/demo_data.md
-      - "Quick start on fetal heart": tutorials/quickstart.md
-      - "Predict genes outside the panel": tutorials/unseen_genes.md
+      - "Walkthrough: fetal heart, end to end": tutorials/walkthrough.ipynb
       - "Command line": tutorials/cli.md
-      - "Choosing a reference and gene embeddings": tutorials/choosing.md
       - "Inputs and outputs": tutorials/inputs_outputs.md
-  - How the model works: method.md
-  - Equivalence with the paper model: equivalence.md
+      - "Choosing a reference and gene embeddings": tutorials/choosing.md
   - API reference:
       - Overview: api/index.md
       - prepare: api/prepare.md

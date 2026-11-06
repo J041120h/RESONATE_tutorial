@@ -3,7 +3,7 @@
 Trains RESONATE on prepared inputs in two stages: **reference pre-training** (reconstruct hidden panel genes and
 targets in reference cells, plus auxiliary reference genes) and **spatial fine-tuning** (reconstruct hidden measured
 genes in spatial cells, starting from the pre-trained weights). Fine-tuning sets aside 20 % of the measured genes to
-choose the checkpoint and the attention weight $\lambda$. See [How the model works](../method.md#training).
+choose the checkpoint and the attention weight $\lambda$.
 
 **Source:** `src/resonate/api.py` (training loops in `src/resonate/train.py`)
 
@@ -41,5 +41,5 @@ model = resonate.fit(prep, cfg)
 print(model.summary["stage2"]["lambda_"])
 ```
 
-On the demo data with `max_epochs=12`, `fit` takes about six minutes on four CPU cores; see the
-[quick start](../tutorials/quickstart.md#3-fit) for the log.
+On the demo data with `max_epochs=12`, `fit` takes about six minutes on four CPU cores; see step 3 of the
+[walkthrough](../tutorials/walkthrough.ipynb) for the log.

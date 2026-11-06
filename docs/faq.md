@@ -3,8 +3,8 @@
 **Which genes can I predict?**
 Any gene that the reference measures and that has an embedding, as long as it is not in the spatial panel. Genes in
 `target_genes` are modelled during training; other reference genes are predicted afterwards without refitting
-(`model.predict(genes, reference=..., gene_embeddings=...)`). See
-[Predict genes outside the panel](tutorials/unseen_genes.md).
+(`model.predict(genes, reference=..., gene_embeddings=...)`). See step 6 of the
+[walkthrough](tutorials/walkthrough.ipynb).
 
 **How many target genes should I give at fit time?**
 The type-specific correlation tensor holds `T × G × G` floats, with `G` = measured + target genes (16 types and
@@ -23,9 +23,9 @@ the measured genes). `expm1` gives a normalised-count scale; treat absolute leve
 the model optimises agreement across cells.
 
 **How long does it take, and how much memory?**
-On the demo data (12,000 spatial cells, 8,011 reference cells, 236 genes), with four CPU cores: about 2 minutes for
-`prepare` and about 6 minutes for `fit` at 12 epochs per stage (23 minutes with the paper defaults); the runs peaked at
-11 to 12 GiB of memory, so use at least 16 GB. For the full fetal-heart dataset of the paper (250,926 spatial cells,
+On the demo data (12,000 spatial cells, 8,011 reference cells, 236 genes), with four CPU cores: 1 to 2 minutes for
+`prepare` and about 6 minutes for `fit` at 12 epochs per stage (23 minutes with the paper defaults); the walkthrough
+peaked at 8.9 GiB of memory and other demo runs at up to 12 GiB, so use at least 16 GB. For the full fetal-heart dataset of the paper (250,926 spatial cells,
 73,248 reference cells), `prepare` took about 33 minutes on eight CPU cores and `fit` about 11 minutes on one L40S GPU.
 See [Installation](installation.md#hardware).
 
@@ -42,8 +42,7 @@ the target set.
 The default GPU numerics follow the paper: TF32 matrix multiplies and bf16 inside the attention term, and a fused
 attention kernel whose backward pass is not deterministic. `Config(tf32=False, attn_bf16=False, attn_impl="sdpa_det")`
 gives tighter reproducibility at some cost in speed. Reference cell types come from Leiden clustering, which can differ
-slightly across library versions and thread counts. See [Equivalence with the paper model](equivalence.md) for the
-spread across seeds.
+slightly across library versions and thread counts.
 
 **My tissue is mouse.**
 Provide an embedding table with mouse symbols. The scGPT-spatial table is human. The paper's analyses are on human

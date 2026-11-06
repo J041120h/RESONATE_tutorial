@@ -8,14 +8,16 @@ The software lives in its own repository: https://github.com/J041120h/RESONATE.
 ## Layout
 
 ```
-mkdocs.yml                  site configuration (theme, navigation, Markdown extensions)
+mkdocs.yml                  site configuration (theme, navigation, Markdown extensions, notebook plugin)
 requirements-docs.txt       exact versions used to build the site
+overrides/main.html         adds a download button to notebook pages
 docs/                       page sources
   index.md                  home page
   installation.md
-  tutorials/                demo data, quick start, outside-panel genes, command line, choosing inputs, inputs/outputs
-  method.md                 how the model works
-  equivalence.md            equivalence with the paper model
+  tutorials/
+    walkthrough.ipynb       the end-to-end tutorial: an executed notebook, shown as is (never re-executed by the build)
+    cli.md                  the same workflow from a shell
+    inputs_outputs.md, choosing.md
   api/                      hand-written API reference
   faq.md, citation.md
   resource/                 figures shown on the pages
@@ -24,8 +26,11 @@ docs/                       page sources
 index.html, .nojekyll       only for the branch-deployment fallback below
 ```
 
-The code on the tutorial pages was run as written on the demo data with RESONATE 0.1.0 (CPU, four cores); the printed
-outputs and figures on the pages come from that run.
+The walkthrough notebook was run top to bottom in a new environment (RESONATE installed from GitHub, CPU PyTorch,
+4 CPU cores); the outputs and figures in it come from that run. The commands on the command-line page and the code on
+the embeddings page were run the same way, and their printed outputs are pasted from those runs. To update the
+walkthrough, run the notebook again in an empty folder and replace `docs/tutorials/walkthrough.ipynb` with the executed
+copy.
 
 ## Local preview
 

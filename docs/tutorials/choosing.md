@@ -61,7 +61,7 @@ mine = resonate.load_gene_embeddings("my_embeddings.csv")
 print(mine.name, len(mine), "genes x", mine.dim)
 ```
 
-```text
+```text title="Output"
 scgpt_spatial 2244 genes x 512
 demo rows identical: True
 my_embeddings 2244 genes x 512
@@ -72,10 +72,8 @@ my_embeddings 2244 genes x 512
     it is deposited. In version 0.1.0 the download address is not yet set, and the function says so; build the table
     with `extract_scgpt_spatial` instead.
 
-The paper's embedding ablation (Geneformer 10M, 104M and 316M, a norm-matched random table and a reference PCA,
-crossed with reference size) found that foundation-model embeddings contributed most when the reference was small or
-absent, and that the largest Geneformer embedding outperformed the smallest at every reference size. Read it before
-substituting another table.
+The paper compares several embedding tables (Geneformer models of three sizes, a random table and a principal-component
+table of the reference) at several reference sizes; read that comparison before substituting another table.
 
 **Other species.** The scGPT-spatial table uses human gene symbols. For mouse data, provide a table with mouse
 symbols; with the human table only genes whose symbols are identical would be covered. The paper's analyses are on

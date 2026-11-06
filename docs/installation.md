@@ -1,11 +1,11 @@
 # Installation
 
-RESONATE is a Python package (import name `resonate`) with a command-line tool of the same name. It runs on a CPU; a
-CUDA GPU speeds up large datasets.
+RESONATE is a Python package (install name `resonate-st`, import name `resonate`) with a command-line tool called
+`resonate`. It runs on a CPU; a CUDA GPU speeds up large datasets.
 
 !!! info "Requirements"
-    - **Python ≥ 3.10** and **PyTorch ≥ 2.1**, on Linux or macOS.
-    - **Memory:** at least **16 GB** of RAM for the tutorials. The demo runs peaked at 11 to 12 GiB (see
+    - **Python 3.10 or 3.11** and **PyTorch ≥ 2.1**, on Linux or macOS.
+    - **Memory:** at least **16 GB** of RAM for the tutorials. The walkthrough peaked at 8.9 GiB (see
       [Hardware](#hardware)).
     - **GPU (optional):** any CUDA GPU supported by your PyTorch build.
 
@@ -14,49 +14,52 @@ CUDA GPU speeds up large datasets.
 The package is installed from GitHub (it is not on PyPI yet). Only the PyTorch build differs between a CPU and a GPU
 installation.
 
-=== "pip (CPU)"
+=== "CPU"
 
     ```bash
-    python -m venv resonate-env && source resonate-env/bin/activate      # Python 3.10 or 3.11
-    pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU build of PyTorch
-    pip install "git+https://github.com/J041120h/RESONATE.git"
-    ```
-
-=== "conda (CPU)"
-
-    ```bash
-    git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
-    conda env create -f environment.yml          # pinned, validated versions
+    conda create -n resonate -c conda-forge python=3.11 pip
     conda activate resonate
-    pip install -e . --no-deps
+    pip install torch --index-url https://download.pytorch.org/whl/cpu
+    pip install "resonate-st[notebook] @ git+https://github.com/J041120h/RESONATE.git"
     ```
+
+    `[notebook]` adds Jupyter and matplotlib, which the [walkthrough](tutorials/walkthrough.ipynb) needs; without
+    them, `pip install "git+https://github.com/J041120h/RESONATE.git"`. A Python virtual environment
+    (`python3.11 -m venv resonate-env && source resonate-env/bin/activate`) works in place of the conda environment.
 
 === "GPU"
 
     ```bash
     # first a CUDA build of PyTorch that matches your driver, see https://pytorch.org/get-started/locally/
     pip install torch --index-url https://download.pytorch.org/whl/cu124
-    pip install "git+https://github.com/J041120h/RESONATE.git"
+    pip install "resonate-st[notebook] @ git+https://github.com/J041120h/RESONATE.git"
     python -c "import torch; print(torch.cuda.is_available())"           # should print True
     ```
 
-=== "From a clone"
+=== "Pinned versions (conda)"
 
     ```bash
     git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
+    conda env create -f environment.yml          # pinned, validated versions, CPU PyTorch
+    conda activate resonate
+    pip install -e . --no-deps
+    ```
+
+=== "From a clone, with tests"
+
+    ```bash
+    git clone https://github.com/J041120h/RESONATE.git && cd RESONATE
+    pip install torch --index-url https://download.pytorch.org/whl/cpu
     pip install -e ".[test]"
     pytest -q -m "not slow"      # unit tests, about a minute
     pytest -q                    # with the end-to-end tests, a few minutes
     ```
 
-The tutorials also draw figures with matplotlib:
-
-```bash
-pip install matplotlib
-```
-
-More detail (validated version sets, GPU notes) is in the repository's
-[`INSTALL.md`](https://github.com/J041120h/RESONATE/blob/main/INSTALL.md).
+The **CPU** tab is the installation the tutorials on this site were run with (2026-11-06, Linux x86-64, a new conda
+environment; it took about 4 minutes, mostly downloads). The code repository's continuous integration runs the
+**From a clone** commands on every change, on Python 3.10 and 3.11. The **GPU** and **Pinned versions** routes come from
+the repository's [`INSTALL.md`](https://github.com/J041120h/RESONATE/blob/main/INSTALL.md), which lists the versions
+they were validated with.
 
 ## 2. Check the installation
 
@@ -71,9 +74,9 @@ resonate --help
 0.1.0
 usage: resonate [-h] {prepare,fit,predict,run,download-embeddings,version} ...
 
-Command line: ``resonate prepare | fit | predict | run | download-embeddings | version``. All
-commands read and write AnnData (``.h5ad``) and plain folders; there are no cluster-specific
-paths.
+Command line: ``resonate prepare | fit | predict | run | download-embeddings |
+version``. All commands read and write AnnData (``.h5ad``) and plain folders;
+there are no cluster-specific paths.
 
 positional arguments:
   {prepare,fit,predict,run,download-embeddings,version}
@@ -86,23 +89,24 @@ options:
   -h, --help            show this help message and exit
 ```
 
-Then download the [demo data](tutorials/demo_data.md) and run the [quick start](tutorials/quickstart.md).
+Then run the [walkthrough](tutorials/walkthrough.ipynb).
 
 ## Hardware
 
-Measured with RESONATE 0.1.0 on the [demo data](tutorials/demo_data.md) (12,000 spatial cells, 8,011 reference cells,
-236 panel genes) and on the full fetal-heart dataset of the paper:
+Measured with RESONATE 0.1.0 on the demo data (12,000 spatial cells, 8,011 reference cells, 236 panel genes) and on
+the full fetal-heart dataset of the paper. Peak memory is the largest resident memory of the job reported by Slurm.
 
 | run | `prepare` | `fit` | peak memory |
 |---|---|---|---|
-| demo, [quick start](tutorials/quickstart.md) (12 epochs per stage), 4 CPU cores | 2.1 min | 5.5 min | 10.7 GiB |
-| demo, [outside-panel page](tutorials/unseen_genes.md) (12 epochs per stage), 4 CPU cores | 9.3 min together | | 12.0 GiB |
-| demo, quick start with the paper defaults (91 + 17 epochs), 4 CPU cores | 2.3 min | 23 min | 11.0 GiB |
-| demo, quick start with the paper defaults (87 + 16 epochs), 1 NVIDIA L40S GPU | 1.6 min | 0.6 min | 4.2 GiB host |
+| [walkthrough](tutorials/walkthrough.ipynb) (12 epochs per stage), 4 CPU cores; whole notebook 8.0 min | 0.7 min | 6.3 min | 8.9 GiB |
+| [command line](tutorials/cli.md) page (12 epochs per stage), 4 CPU cores; whole page, with `resonate run`, 14.9 min | 0.9 min | 6.2 min | 9.5 GiB |
+| demo, paper defaults (up to 500 epochs, early stopping: 91 + 17 epochs), 4 CPU cores | 2.3 min | 23 min | 11.0 GiB |
+| demo, paper defaults (87 + 16 epochs), 1 NVIDIA L40S GPU | 1.6 min | 0.6 min | 4.2 GiB host |
 | full fetal heart (250,926 spatial and 73,248 reference cells), paper defaults | 33 min on 8 CPU cores | about 11 min on 1 NVIDIA L40S GPU | 12.6 GiB host for `prepare` |
 
-Peak memory is the largest resident memory of the job reported by Slurm (the largest over repeated runs). Use a machine with at least 16 GB of RAM for
-the tutorials.
+The first two rows are the runs shown on this site (environment below). The other rows were measured on 2026-11-05 with
+the same code in a Python 3.10 environment (torch 2.5.1). `prepare` time depends on the machine: the same step took
+about 2 minutes on other nodes of the same cluster.
 
 * Use a GPU for datasets of more than a few tens of thousands of cells: set nothing (CUDA is chosen when PyTorch sees
   it) or pass `Config(device="cuda")`.
@@ -112,9 +116,10 @@ the tutorials.
 
 ## Tested versions
 
-The outputs on this site come from runs with Python 3.10.20, torch 2.5.1 (CUDA 12.1 build; on the CPU except the GPU row above), numpy 1.26.4, scipy 1.15.3, pandas 2.3.3,
-scikit-learn 1.7.2, anndata 0.11.4, scanpy 1.11.5, harmonypy 2.0.0, igraph 1.0.0, leidenalg 0.11.0, pynndescent 0.6.0
-and matplotlib 3.10.9. The repository's `environment.yml` pins a newer set that the package was also validated with.
+The tutorials on this site were run with Python 3.11.18 and the versions that the CPU installation above resolved on
+2026-11-06: resonate-st 0.1.0 (commit `50d67af`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1, pandas 2.3.3,
+scikit-learn 1.9.1, anndata 0.12.19, scanpy 1.11.5, harmonypy 2.1.0, igraph 1.0.0, leidenalg 0.12.0, pynndescent 0.6.0,
+umap-learn 0.5.12, matplotlib 3.11.2, jupyterlab 4.6.5 and nbconvert 7.17.2.
 
 Reference cell types come from Leiden clustering after Harmony correction, so other versions of those libraries can
 give slightly different clusters and therefore slightly different predictions. `pynndescent` 0.7 does not work with

@@ -71,8 +71,9 @@ usage: resonate run [-h] --spatial SPATIAL --reference REFERENCE --embeddings EM
 Writes the predictions of the targets to `--out` (an `.h5ad`) and keeps nothing else.
 
 !!! note
-    In version 0.1.0, `resonate run` ignores `--heldout-seed` and always draws the held-out genes with seed 0. Use
-    `resonate prepare --heldout-seed ...` followed by `fit` and `predict` for other draws.
+    Installations made before 2026-11-06 ignore `--heldout-seed` in `resonate run` and always draw the held-out genes
+    with seed 0 (fixed in the code repository; see its
+    [CHANGELOG](https://github.com/J041120h/RESONATE/blob/main/CHANGELOG.md)). Reinstall from GitHub to get the fix.
 
 ## `resonate download-embeddings`
 

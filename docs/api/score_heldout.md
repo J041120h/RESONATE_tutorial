@@ -46,7 +46,7 @@ scores = resonate.score_heldout(prep, pred)
 print(scores["top_n"]["pearson"], scores["top_n"]["n_genes"])
 ```
 
-See [Score the held-out genes](../tutorials/quickstart.md#5-score-the-held-out-genes).
+See step 4 of the [walkthrough](../tutorials/walkthrough.ipynb).
 
 ## Related
 

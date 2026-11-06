@@ -58,7 +58,7 @@ pred = model.predict()                                                       # t
 extra = model.predict(["NPPA", "NPPB"], reference=reference, gene_embeddings=emb)   # any reference gene
 ```
 
-See [Predict genes outside the panel](../tutorials/unseen_genes.md).
+See step 6 of the [walkthrough](../tutorials/walkthrough.ipynb).
 
 ## Other members
 

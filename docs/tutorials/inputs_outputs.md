@@ -47,7 +47,8 @@ fields, with `G` = measured genes followed by targets and `T` = reference cell t
 | `truth_counts`, `truth_genes`, `lib_full` | | measured values of held-out genes, for `score_heldout` |
 | `meta` | dict | counts, the reference clustering resolution, the configuration, run time |
 
-On the demo data, `prepare` takes about 2 minutes on four CPU cores, and the saved folder is about 100 MB (the fitted model adds 8 MB).
+On the demo data, `prepare` takes 1 to 2 minutes on four CPU cores, and the saved folder is about 107 MB (the fitted
+model adds about 9 MB).
 
 ## What `predict` returns
 

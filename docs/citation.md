@@ -24,4 +24,5 @@ If you use the demo data or the default gene embeddings, please also cite:
 ## Licence
 
 RESONATE is released under the [MIT licence](https://github.com/J041120h/RESONATE/blob/main/LICENSE). The demo data
-keep their own licences, listed on the [Demo data](tutorials/demo_data.md#licence-and-citation) page.
+keep their own licences: CC0 1.0 for the MERFISH data and the reference, CC BY 4.0 for the scGPT-spatial embedding
+rows (see above).

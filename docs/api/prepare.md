@@ -4,7 +4,7 @@ Builds every model input from a spatial `AnnData`, a matched single-cell referen
 smoothed profiles, the 100 nearest reference cells of every cell (for all genes and for 20 gene folds), reference cell
 types (Leiden on the Harmony-corrected reference), cell-type mixtures, type-specific correlations, spatial neighbours,
 gene embeddings and auxiliary pre-training targets. Held-out genes are removed from the input before normalisation and
-kept only for scoring. See [How the model works](../method.md#model-inputs-resonateprepare).
+kept only for scoring.
 
 **Source:** `src/resonate/prep/pipeline.py`
 
@@ -78,7 +78,7 @@ cfg = resonate.Config(device="cpu", tf32=False, attn_bf16=False, max_epochs=12)
 prep = resonate.prepare(spatial, reference, emb, target_genes=held_out, config=cfg)
 ```
 
-From the [quick start](../tutorials/quickstart.md#2-prepare-the-model-inputs).
+From step 3 of the [walkthrough](../tutorials/walkthrough.ipynb).
 
 ## `Prepared`
 
