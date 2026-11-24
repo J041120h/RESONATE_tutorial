@@ -69,7 +69,7 @@ resonate.download_embeddings(name="scgpt_spatial_human", dest=None) -> pathlib.P
 
 Downloads a registered table into `dest` (default `~/.cache/resonate`), checks its checksum and returns the path.
 
-!!! warning "Not available in 0.1.0"
+!!! warning "Not available yet"
     The full scGPT-spatial table has not been deposited yet, so the registered address is a placeholder and the
     function raises `RuntimeError` with a pointer to `extract_scgpt_spatial`. The same holds for
     `resonate download-embeddings`.

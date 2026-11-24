@@ -35,6 +35,9 @@ installation.
     python -c "import torch; print(torch.cuda.is_available())"           # should print True
     ```
 
+    On a GPU the preparation also runs its nearest-neighbour searches and Harmony there
+    ([Performance settings](tutorials/performance.md)).
+
 === "Pinned versions (conda)"
 
     ```bash
@@ -54,8 +57,8 @@ installation.
     pytest -q                    # with the end-to-end tests, a few minutes
     ```
 
-The **CPU** tab is the installation the tutorials on this site were run with (2026-11-05, Linux x86-64, a new conda
-environment; it took about 4 minutes, mostly downloads). The code repository's continuous integration runs the
+The **CPU** tab is the installation the tutorials on this site were run with (2026-11-24, Linux x86-64, a new conda
+environment; it took 2 to 8 minutes, mostly downloads). The code repository's continuous integration runs the
 **From a clone** commands on every change, on Python 3.10 and 3.11. The **GPU** and **Pinned versions** routes come from
 the repository's [`INSTALL.md`](https://github.com/J041120h/RESONATE/blob/main/INSTALL.md), which lists the versions
 they were validated with.
@@ -69,13 +72,17 @@ resonate --help
 ```
 
 ```text title="Output"
-0.2.0
-0.2.0
+0.3.1
+0.3.1
 usage: resonate [-h] {prepare,fit,predict,run,download-embeddings,version} ...
 
 Command line: ``resonate prepare | fit | predict | run | download-embeddings |
 version``. All commands read and write AnnData (``.h5ad``) and plain folders;
-there are no cluster-specific paths.
+there are no cluster-specific paths. Settings start from the defaults
+(``resonate fit``: from the configuration stored with the prepared inputs);
+then ``--preset`` (a ready-made set from ``resonate.config.PRESETS``),
+``--config cfg.json`` (any field) and the explicit flags are applied in this
+order, each overriding the previous.
 
 positional arguments:
   {prepare,fit,predict,run,download-embeddings,version}
@@ -92,9 +99,9 @@ Then run the [walkthrough](tutorials/walkthrough.ipynb).
 
 ## Tested versions
 
-The tutorials on this site were run on 2026-11-05 (Linux x86-64, 4 CPU cores) with Python 3.11.18 and the versions the
-CPU installation above resolved: resonate-st 0.2.0 (commit `1437514`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1,
+The tutorials on this site were run on 2026-11-24 (Linux x86-64, 4 CPU cores) with Python 3.11.18 and the versions the
+CPU installation above resolved: resonate-st 0.3.1 (commit `fbafa7a`), torch 2.15.0+cpu, numpy 1.26.4, scipy 1.17.1,
 pandas 2.3.3, scikit-learn 1.9.1, anndata 0.12.19, scanpy 1.11.5, harmonypy 2.1.0, igraph 1.0.0, leidenalg 0.12.0,
-pynndescent 0.6.0, matplotlib 3.11.2, jupyterlab 4.6.5 and nbconvert 7.17.2. Reference cell types come from Leiden
+pynndescent 0.6.0, matplotlib 3.11.2, jupyterlab 4.6.6 and nbconvert 7.17.2. Reference cell types come from Leiden
 clustering after Harmony correction, so other versions of those libraries can give slightly different clusters and
 therefore slightly different predictions.

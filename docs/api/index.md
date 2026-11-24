@@ -38,7 +38,7 @@ resonate.score_heldout, resonate.__version__
 | object | is | page |
 |---|---|---|
 | `Prepared` | the arrays `prepare` builds; `save` / `load` | [prepare](prepare.md#prepared) |
-| `Config` | every tunable setting, defaults = the paper | [Config](config.md) |
+| `Config` | every tunable setting, defaults = the paper; `Config.preset("benchmark")` | [Config](config.md), [Performance settings](../tutorials/performance.md) |
 | `GeneEmbeddings`, `load_gene_embeddings` | a gene-symbol-to-vector table and its loader | [load_gene_embeddings](embeddings.md) |
 | `extract_scgpt_spatial`, `download_embeddings` | build or fetch the default scGPT-spatial table | [load_gene_embeddings](embeddings.md#extract_scgpt_spatial) |
 

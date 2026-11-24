@@ -19,6 +19,7 @@ Resonate.predict(
     as_anndata=True,
     batch_size=512,
     gene_chunk=128,
+    reference_layer=None,
 ) -> AnnData
 
 resonate.predict(model, genes=None, **kw)      # functional form of the same call
@@ -30,11 +31,12 @@ resonate.predict(model, genes=None, **kw)      # functional form of the same cal
 | --- | --- | --- | --- |
 | `genes` | list of str | `None` | Genes to predict; default the fit targets (`model.target_genes`). Must not be measured panel genes. |
 | `cells` | array of int | `None` | Row indices of the spatial cells to predict; default all, in the order of `spatial`. |
-| `reference` | `AnnData` | `None` | The reference given to `prepare` (same cells, same order). Needed for genes that were not fit targets. Their counts are read from `reference.X`. |
+| `reference` | `AnnData` | `None` | The reference given to `prepare` (same cells, same order). Needed for genes that were not fit targets. |
 | `gene_embeddings` | table or path | `None` | Embedding table containing the requested genes. Needed for genes that were not fit targets. |
 | `as_anndata` | bool | `True` | `False` returns `(array, genes)`. |
 | `batch_size` | int | `512` | Cells per forward pass. |
 | `gene_chunk` | int | `128` | Genes per chunk when predicting genes outside the fit targets. |
+| `reference_layer` | str | `None` | Count layer of `reference` to read; default the `reference_layer` given to `prepare` (`.X` if none). |
 
 ## Returns
 

@@ -25,10 +25,15 @@ resonate.impute(spatial, reference, gene_embeddings, genes=None, *, heldout=None
 | `heldout` | `None` | Measured panel genes to hide from the model and predict as well. |
 | `device` | `None` | `"cpu"` or `"cuda"`; default CUDA when available. `"cpu"` also switches off the GPU-only numerics. |
 | `max_epochs` | `None` | Cap on the epochs of each training stage (default 500 with early stopping). |
-| `config` | `None` | A [`Config`](config.md) for any other setting; `device` and `max_epochs` override it. |
+| `config` | `None` | A [`Config`](config.md) for any other setting, including the [performance settings](../tutorials/performance.md); `device` and `max_epochs` override it. |
 | `return_model` | `False` | Also return the fitted [`Resonate`](predict.md) model. |
 | `verbose` | `True` | Print progress. |
 | `**prepare_kwargs` | | Passed to [`prepare`](prepare.md), for example `section_key`, `batch_key`, `spatial_layer`. |
+
+By default (`Config.overlap_stage1`), reference pre-training starts as soon as the reference side of the preparation is
+done, and the spatial side is prepared beside it. The predictions are the same as with the steps one after the other,
+but both sides are in memory at the same time; `config=resonate.Config(overlap_stage1=False)` turns this off
+([Performance settings](../tutorials/performance.md#overlap-of-preparation-and-training)).
 
 ## Returns
 

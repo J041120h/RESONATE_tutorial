@@ -48,7 +48,7 @@ fields, with `G` = measured genes followed by targets and `T` = reference cell t
 | `r_ref`, `r_ref_cv`, `nbr` | cells × `G`; cells × `G`; cells × 100 | reference lookup (all genes / gene folds) and the 100 nearest reference cells |
 | `tr`, `va`, `te` | indices | the cell split |
 | `truth_counts`, `truth_genes`, `lib_full` | | measured values of held-out genes, for `score_heldout` |
-| `meta` | dict | counts, the reference clustering resolution, the configuration, run time |
+| `meta` | dict | counts, the reference clustering resolution, the configuration, run times, the Harmony backend and nearest-neighbour device used, the package version |
 
 On the demo data, `prepare` takes 1 to 2 minutes on four CPU cores, and the saved folder is about 107 MB (the fitted
 model adds about 9 MB).

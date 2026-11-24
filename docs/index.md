@@ -53,10 +53,17 @@ resonate.pl.spatial_genes(pred, ["NPPA", "MYL2", "COL6A2", "EMCN"])
 - [Command line](tutorials/cli.md): the same workflow from a shell.
 - [Inputs and outputs](tutorials/inputs_outputs.md) and
   [Choosing a reference and gene embeddings](tutorials/choosing.md): for your own data.
+- [Performance settings](tutorials/performance.md): threads, GPU use and memory for large datasets.
 
-!!! note "Scope of this release"
-    Version 0.1.0 contains the RNA model of the paper (spatial genes from a single-cell RNA reference). The paper's
-    cross-omics mode (spatial protein from RNA with a paired RNA-protein reference) is not part of this release.
+!!! note "Version 0.3.1"
+    Versions 0.3.0 and 0.3.1 run faster with the same method: `impute` and `resonate run` prepare the spatial side of
+    the inputs while the model trains on the reference, on a GPU Harmony runs there too, threads and devices can be
+    set, and panels of thousands of genes can train on one GPU by computing each batch in shares
+    ([Performance settings](tutorials/performance.md)). All changes are listed in the
+    [CHANGELOG](https://github.com/J041120h/RESONATE/blob/main/CHANGELOG.md).
+
+    The package contains the RNA model of the paper (spatial genes from a single-cell RNA reference). The paper's
+    cross-omics mode (spatial protein from RNA with a paired RNA-protein reference) is not part of it.
 
 ## Citation
 

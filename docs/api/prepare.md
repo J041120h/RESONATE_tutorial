@@ -53,7 +53,7 @@ resonate.prepare(
 | `label_key` | str | `None` | `obs` column used to stratify the random split. |
 | `type_key` | str | `None` | `obs` column of the reference with cell types to use instead of Leiden clusters (types under `min_type_cells` cells are pooled). The paper uses Leiden clusters. |
 | `spatial_layer`, `reference_layer` | str | `None` | Count layers to read instead of `.X`. |
-| `config` | `Config` | `None` | Settings; `None` = `Config()` (the paper defaults). Pass the same config to `fit`. |
+| `config` | `Config` | `None` | Settings; `None` = `Config()` (the paper defaults). Pass the same config to `fit`. It also sets where the preparation runs (`knn_device`, `knn_chunk`, `harmony_backend`, `n_threads`, `leiden_threads`; see [Performance settings](../tutorials/performance.md)). |
 | `verbose` | bool | `True` | Print timestamped progress. |
 | `out_dir` | path | `None` | If given, also `save` the result there. |
 
@@ -67,10 +67,10 @@ Prepared(12000 spatial cells, 8011 reference cells, 188 measured + 48 target gen
 
 ## Raises
 
-`ValueError` when gene symbols are not unique, when both or neither of `target_genes` and `heldout_fraction` are
-given, when fewer than 20 measured genes remain after holding out, when a panel or target gene is missing from the
-reference, when counts are not raw (negative or non-integer), when `obsm[spatial_key]` is missing, or when `obs[split_key]`
-lacks `train` or `val` cells.
+`ValueError`, before any heavy computation, when gene symbols are not unique, when both or neither of `target_genes`
+and `heldout_fraction` are given, when fewer than 20 measured genes remain after holding out, when a panel or target
+gene is missing from the reference, when counts are not raw (negative or non-integer), when `obsm[spatial_key]` is
+missing, or when `obs[split_key]` lacks `train` or `val` cells.
 
 ## Example
 
@@ -93,7 +93,7 @@ The output of `prepare`: plain numpy arrays plus a `meta` dictionary. The fields
 | `save(path)` | writes `path/arrays.npz` and `path/meta.json` |
 | `Prepared.load(path)` | class method; reads them back |
 | `n_cells`, `n_genes` | number of spatial cells; length of the gene axis (measured + targets) |
-| `meta` | counts, `ref_resolution` (Leiden resolution), `type_source`, the configuration, `minutes` |
+| `meta` | counts, `ref_resolution` (Leiden resolution), `type_source`, the configuration, `minutes` (also per side), `harmony_backend` and `knn_device` used, `resonate_version` |
 
 `prepare` repeats the reference searches and Harmony 21 times (20 gene folds and all genes), so save the result when
 you want to fit several times on the same inputs.

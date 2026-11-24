@@ -2,12 +2,13 @@
 
 **The installation fails.**
 Install PyTorch first (`pip install torch --index-url https://download.pytorch.org/whl/cpu`, or a CUDA build), then
-RESONATE, in a new environment with Python 3.10 or 3.11. The package needs `numpy < 2` and `scanpy < 1.12`, which can
-conflict with other versions already installed in an existing environment.
+RESONATE, in a new environment with Python 3.10 or 3.11. The package needs `numpy < 2`, `scanpy < 1.12` and
+`harmonypy >= 2.0, < 3`, which can conflict with other versions already installed in an existing environment.
 
 **How do I use a GPU?**
 Install a CUDA build of PyTorch that matches your driver ([Installation](installation.md)). RESONATE then uses the GPU
-by default; drop `device="cpu"` and `max_epochs=12` from the tutorial call to train with the paper settings.
+by default; drop `device="cpu"` and `max_epochs=12` from the tutorial call to train with the paper settings. Threads,
+devices and memory use: [Performance settings](tutorials/performance.md).
 
 **How do I run it on my own data?**
 Give `resonate.impute` an `AnnData` of raw counts of your panel with coordinates in `obsm["spatial"]`, a reference
@@ -20,7 +21,7 @@ A single-cell or single-nucleus reference of the same tissue that measures the g
 [Choosing a reference and gene embeddings](tutorials/choosing.md).
 
 **How do I save and reload a fitted model?**
-Save it with the prepared inputs it was trained on, as in step 8 of the [walkthrough](tutorials/walkthrough.ipynb);
+Save it with the prepared inputs it was trained on, as in step 7 of the [walkthrough](tutorials/walkthrough.ipynb);
 a reloaded model predicts further reference genes without refitting:
 
 ```python

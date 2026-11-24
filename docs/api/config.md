@@ -1,15 +1,24 @@
 # `Config`
 
 All tunable settings, as a dataclass. **The defaults are the paper settings.** Pass the same `Config` to
-[`prepare`](prepare.md) and [`fit`](fit.md); `prepare` stores it in `prepared.meta["config"]`, and `fit(prepared)`
-without a config reuses it. On the command line, a JSON file with any of these keys does the same (`--config`).
+[`prepare`](prepare.md) and [`fit`](fit.md), or to [`impute`](impute.md); `prepare` stores it in
+`prepared.meta["config"]`, and `fit(prepared)` without a config reuses it. On the command line, a JSON file with any of
+these keys does the same (`--config`).
 
 **Source:** `src/resonate/config.py`
 
 ```python
 cfg = resonate.Config(device="cpu", max_epochs=12)
-cfg.to_dict()
+d = cfg.to_dict()                                         # a plain dictionary, as stored in prepared.meta["config"]
+same = resonate.Config.from_dict(d)                       # and back
+bench = resonate.Config.preset("benchmark", n_threads=9)  # a ready-made set, with one field changed
 ```
+
+| method | does |
+| --- | --- |
+| `to_dict()` | the settings as a dictionary |
+| `Config.from_dict(d)` | the inverse; lists become tuples, unknown keys raise `ValueError`, missing keys take their defaults |
+| `Config.preset(name, **overrides)` | a ready-made configuration; `"benchmark"` is the only one ([Performance settings](../tutorials/performance.md#the-benchmark-preset)) |
 
 ## Preparation
 
@@ -56,9 +65,14 @@ cfg.to_dict()
 | field | default | meaning |
 | --- | --- | --- |
 | `device` | `None` | `"cpu"`, `"cuda"`, `"cuda:1"`, ...; `None` = CUDA if available |
-| `tf32` | `True` | TF32 matrix multiplies on CUDA (paper setting) |
+| `tf32` | `True` | TF32 matrix multiplies in training on CUDA (paper setting); the preparation always runs in full float32 |
 | `attn_impl` | `"sdpa"` | attention kernel: `"sdpa"` (fused), `"sdpa_det"` (deterministic backward), `"explicit"` |
 | `attn_bf16` | `True` | bf16 autocast inside the attention term on CUDA (paper setting) |
 | `data_on_host` | `False` | keep the cells × genes matrices in host memory, for very large datasets |
+
+## Performance
+
+`n_threads`, `leiden_threads`, `knn_device`, `knn_chunk`, `harmony_backend`, `overlap_stage1` and `grad_accum` choose
+where the computation runs, how fast and in how much memory; see [Performance settings](../tutorials/performance.md).
 
 The 100 reference neighbours and the 20 gene folds are fixed by the model and are not settings.

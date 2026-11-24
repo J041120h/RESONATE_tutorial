@@ -69,7 +69,7 @@ my_embeddings 2244 genes x 512
 
 !!! note "A downloadable full table"
     `resonate download-embeddings` / `resonate.download_embeddings()` will fetch a ready-made scGPT-spatial table once
-    it is deposited. In version 0.1.0 the download address is not yet set, and the function says so; build the table
+    it is deposited. In version 0.3.1 the download address is not set yet, and the function says so; build the table
     with `extract_scgpt_spatial` instead.
 
 The paper compares several embedding tables (Geneformer models of three sizes, a random table and a principal-component

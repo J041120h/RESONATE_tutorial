@@ -17,7 +17,7 @@ docs/                       page sources
   tutorials/
     walkthrough.ipynb       the end-to-end tutorial: an executed notebook, shown as is (never re-executed by the build)
     cli.md                  the same workflow from a shell
-    inputs_outputs.md, choosing.md
+    inputs_outputs.md, choosing.md, performance.md
   api/                      hand-written API reference
   faq.md, citation.md
   resource/                 figures shown on the pages

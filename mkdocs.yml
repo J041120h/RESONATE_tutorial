@@ -105,6 +105,7 @@ nav:
       - "Command line": tutorials/cli.md
       - "Inputs and outputs": tutorials/inputs_outputs.md
       - "Choosing a reference and gene embeddings": tutorials/choosing.md
+      - "Performance settings": tutorials/performance.md
   - API reference:
       - Overview: api/index.md
       - impute: api/impute.md
